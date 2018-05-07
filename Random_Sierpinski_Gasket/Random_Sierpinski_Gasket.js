@@ -6,7 +6,7 @@ var height = window.innerHeight;
 var delta  = 10;
 
 //Set canvas width and height
-canvas.width  = width
+canvas.width  = width;
 canvas.height = height;
 
 function triangle(x1, y1,
