@@ -93,8 +93,8 @@ function chaos_game(vertices, // number of vertices
         // Rotate on 30 degrees angle clockwise
         dx = rx - polyhedron[vertex].x;
         dy = ry - polyhedron[vertex].y;
-        rx = dx * cos - dy * sin + polyhedron[vertex].x; // new x-position after rotation
-        ry = dx * sin + dy * cos + polyhedron[vertex].y; // new y-position after rotation
+        rx = dx * cos + dy * sin + polyhedron[vertex].x; // new x-position after rotation
+        ry = dy * cos - dx * sin + polyhedron[vertex].y; // new y-position after rotation
 
         if (inColor)
         {   // Set color to the image
