@@ -43,27 +43,27 @@ function prepare() {
     // Fill polyhedron with affine transformation matrices associated with each vertex
     var polyhedron = [];
     if (vertices === "3") {  // Sierpinski Gasket
-        let vertex1 = [[0.5, 0, 0], [0, 0.5, 0.5 * h], [0, 0, 1]];  // (0, h)
-        let vertex2 = [[0.5, 0, 0.5 * w], [0, 0.5, 0.5 * h], [0, 0, 1]];  // (w, h)
-        let vertex3 = [[0.5, 0, 0.25 * w], [0, 0.5, 0], [0, 0, 1]];  // (w/2, 0)
+        let vertex1 = [[0.5, 0, 0],        [0, 0.5, 0.5 * h], [0, 0, 1]];  // (0, h)
+        let vertex2 = [[0.5, 0, 0.5 * w],  [0, 0.5, 0.5 * h], [0, 0, 1]];  // (w, h)
+        let vertex3 = [[0.5, 0, 0.25 * w], [0, 0.5, 0],       [0, 0, 1]];  // (w/2, 0)
         polyhedron.push(vertex1, vertex2, vertex3);
     } else if (vertices === "6") {  // Sierpinski Hexagon
-        let vertex1 = [[1 / 3, 0, 1 / 6 * w], [0, 1 / 3, 2 / 3 * h], [0, 0, 1]];
-        let vertex2 = [[1 / 3, 0, 1 / 2 * w], [0, 1 / 3, 2 / 3 * h], [0, 0, 1]];
-        let vertex3 = [[1 / 3, 0, 0], [0, 1 / 3, 1 / 3 * h], [0, 0, 1]];
-        let vertex4 = [[1 / 3, 0, 2 / 3 * w], [0, 1 / 3, 1 / 3 * h], [0, 0, 1]];
-        let vertex5 = [[1 / 3, 0, 1 / 6 * w], [0, 1 / 3, 0], [0, 0, 1]];
-        let vertex6 = [[1 / 3, 0, 1 / 2 * w], [0, 1 / 3, 0], [0, 0, 1]];
+        let vertex1 = [[1/3, 0, 1/6 * w], [0, 1/3, 2/3 * h], [0, 0, 1]];
+        let vertex2 = [[1/3, 0, 1/2 * w], [0, 1/3, 2/3 * h], [0, 0, 1]];
+        let vertex3 = [[1/3, 0, 0],       [0, 1/3, 1/3 * h], [0, 0, 1]];
+        let vertex4 = [[1/3, 0, 2/3 * w], [0, 1/3, 1/3 * h], [0, 0, 1]];
+        let vertex5 = [[1/3, 0, 1/6 * w], [0, 1/3, 0],       [0, 0, 1]];
+        let vertex6 = [[1/3, 0, 1/2 * w], [0, 1/3, 0],       [0, 0, 1]];
         polyhedron.push(vertex1, vertex2, vertex3, vertex4, vertex5, vertex6);
     } else if (vertices === "8") {  // Sierpinski Carpet
-        let vertex1 = [[1 / 3, 0, 0], [0, 1 / 3, 2 / 3 * h], [0, 0, 1]];
-        let vertex2 = [[1 / 3, 0, 1 / 3 * w], [0, 1 / 3, 2 / 3 * h], [0, 0, 1]];
-        let vertex3 = [[1 / 3, 0, 2 / 3 * w], [0, 1 / 3, 2 / 3 * h], [0, 0, 1]];
-        let vertex4 = [[1 / 3, 0, 0], [0, 1 / 3, 1 / 3 * h], [0, 0, 1]];
-        let vertex5 = [[1 / 3, 0, 2 / 3 * w], [0, 1 / 3, 1 / 3 * h], [0, 0, 1]];
-        let vertex6 = [[1 / 3, 0, 0], [0, 1 / 3, 0], [0, 0, 1]];
-        let vertex7 = [[1 / 3, 0, 1 / 3 * w], [0, 1 / 3, 0], [0, 0, 1]];
-        let vertex8 = [[1 / 3, 0, 2 / 3 * w], [0, 1 / 3, 0], [0, 0, 1]];
+        let vertex1 = [[1/3, 0, 0],       [0, 1/3, 2/3 * h], [0, 0, 1]];
+        let vertex2 = [[1/3, 0, 1/3 * w], [0, 1/3, 2/3 * h], [0, 0, 1]];
+        let vertex3 = [[1/3, 0, 2/3 * w], [0, 1/3, 2/3 * h], [0, 0, 1]];
+        let vertex4 = [[1/3, 0, 0],       [0, 1/3, 1/3 * h], [0, 0, 1]];
+        let vertex5 = [[1/3, 0, 2/3 * w], [0, 1/3, 1/3 * h], [0, 0, 1]];
+        let vertex6 = [[1/3, 0, 0],       [0, 1/3, 0],       [0, 0, 1]];
+        let vertex7 = [[1/3, 0, 1/3 * w], [0, 1/3, 0],       [0, 0, 1]];
+        let vertex8 = [[1/3, 0, 2/3 * w], [0, 1/3, 0],       [0, 0, 1]];
         polyhedron.push(vertex1, vertex2, vertex3, vertex4, vertex5, vertex6, vertex7, vertex8);
     }
 
