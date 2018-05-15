@@ -44,8 +44,6 @@ function prepare() {
     if (fern === "Simple") {  // Simple Fern
         context.fillText("Type: Simple Fern", 5, 20);  // add text to the canvas
         vertices = 2;
-        w *= i;
-        h *= i;
         let vertex1 = [[2/3, 0,  0],               [0, 2/3, 1/3 * h],           [0, 0, 1]];
         let vertex2 = [[i,   -i, (2/3 + i/2) * w], [i, i,   (1/3 - 3*i/2) * h], [0, 0, 1]];
         polyhedron.push(vertex1, vertex2);
@@ -58,37 +56,66 @@ function prepare() {
         let vertex3 = [[-0.15, 0.28,  0],  [0.26,  0.24, 0.44 * h], [0, 0, 1]];
         let vertex4 = [[0,     0,     0],  [0,     0.16, 0],        [0, 0, 1]];
         polyhedron.push(vertex1, vertex2, vertex3, vertex4);
+    } else if (fern === "Spirals") {
+        context.fillText("Type: Spirals fractal", 5, 20);  // add text to the canvas
+        vertices = 2;
+        let vertex1 = [[0.2, -0.5, -0.6 * w], [0.4, 0.1, 0.8 * h], [0, 0, 1]];
+        let vertex2 = [[0.6, -0.7, -1.1 * w], [0.6, 0.5, 0.5 * h], [0, 0, 1]];
+        polyhedron.push(vertex1, vertex2);
     }
 
     // Get starting point (initial point)
     const vertex = 0, start = polyhedron[vertex]; // get the 1st vertex
     const point = [[start[0][2] / start[1][2] * h], [h], [1]];  // starting point is in the 1st vertex
 
-    return [polyhedron, point, w/2, canvas.height];
+    return [polyhedron, point];
 }
 
 // Function to draw the fern
 function draw() {
-    const [polyhedron, start, shift1, shift2] = prepare();  // make preparations before drawing
+    const [polyhedron, start] = prepare();  // make preparations before drawing
     const iterations = 200000;
     let vertex, point = start;
     if (fern === "Simple") {
+        const shift_y = canvas.height;
+        const ratio = Math.sqrt(2) / 3;
         for (let i = 0; i < iterations; i++) {
             vertex = Math.floor(Math.random() * vertices);  // randomly choose a vertex
-            point = Math.dot(polyhedron[vertex], point);  // new point position
-            context.fillRect(point[0][0], point[1][0], 1, 1);  // draw a point as a rectangle
+            point = Math.dot(polyhedron[vertex], point);  // new point attractor position
+            // Draw a point as a rectangle
+            context.fillRect(point[0][0] * ratio, shift_y - point[1][0] * ratio, 1, 1);
         }
     } else if (fern === "Barnsley") {
+        const shift_x = canvas.width / 2;
+        const shift_y = canvas.height;
         for (let i = 0; i < iterations; i++) {
-            v = Math.random();
             // Choose vertex with weighted probabilities
+            let v = Math.random();
             if (v <= 0.73) { vertex = 0; } else
             if (v <= 0.86) { vertex = 1; } else
             if (v <= 0.97) { vertex = 2; } else
                            { vertex = 3; }
-            point = Math.dot(polyhedron[vertex], point);  // new point position
+            point = Math.dot(polyhedron[vertex], point);  // new point attractor position
             // Draw a point as a rectangle
-            context.fillRect(point[0][0] + shift1, shift2 - point[1][0], 1, 1);
+            context.fillRect(point[0][0] + shift_x, shift_y - point[1][0], 1, 1);
+        }
+    } else if (fern === "Spirals") {
+        const shift_x = 0.8 * canvas.width;
+        const shift_y = 0.2 * canvas.height;
+        const ratio = 0.23;
+        for (let i = 0; i < iterations; i++) {
+            // Choose vertex with weighted probabilities
+            let v = Math.random();
+            if (v <= 0.25) {
+                vertex = 0;
+                context.fillStyle = "red";
+            } else {
+                vertex = 1;
+                context.fillStyle = "blue";
+            }
+            point = Math.dot(polyhedron[vertex], point);  // new point attractor position
+            // Draw a point as a rectangle
+            context.fillRect(point[0][0] * ratio + shift_x, shift_y - point[1][0] * ratio, 1, 1);
         }
     }
 }
