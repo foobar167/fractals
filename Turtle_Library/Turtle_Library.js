@@ -60,7 +60,20 @@ function draw()
             [x, y] = koch(x, y, angle, size, final);
             angle += turn;
         }
+    } else if (description === "snowflake") {
+        const final = 1;  // final fractal size
+        const size = 0.9 * Math.min(w, h);  // initial size of triangle
+        let x = 0.5 * (w - size);  // initial position
+        let y = 0.5 * (h + 0.65 * size);
+        let angle = 0;  // initial angle
+        context.moveTo(x, y);
+        context.lineWidth = 1;  // 1px line width
+        for (let i = 0; i < 3; i++) {
+            [x, y] = snowflake(x, y, angle, size, final);
+            angle -= Math.PI * 120 / 180;
+        }
     }
+
     context.stroke();  // draw the path on the canvas
 }
 
@@ -157,13 +170,12 @@ function cycles()
 function triangle(x, y, angle, step, final)
 {
     if (step > final) {
-        const turn = Math.PI * 120 / 180;  // turn left 120 degree in radians
         for (let i = 0; i < 3; i++) {
             triangle(x, y, angle, 0.5*step, final);
             x = x + step * Math.cos(angle);  // move forward
             y = y + step * Math.sin(angle);
             context.lineTo(x, y);  // draw line segment
-            angle += turn;  // new angle
+            angle += Math.PI * 120 / 180;
         }
     }
 }
@@ -183,6 +195,28 @@ function koch(x, y, angle, size, final)
         [x, y] = koch(x, y, angle, size/3, final);
         angle += Math.PI * 60 / 180;
         [x, y] = koch(x, y, angle, size/3, final);
+    }
+    return [x, y];  // return new position
+}
+
+// Draw Koch Snowflake
+function snowflake(x, y, angle, size, final)
+{
+    if (size < final) {
+        x = x + size * Math.cos(angle);  // move forward
+        y = y + size * Math.sin(angle);
+        context.lineTo(x, y);  // draw line segment
+    } else {
+        [x, y] = snowflake(x, y, angle, size/4, final);
+        angle += Math.PI * 60 / 180;
+        [x, y] = snowflake(x, y, angle, size/4, final);
+        angle += - Math.PI * 120 / 180;
+        [x, y] = snowflake(x, y, angle, size/4, final);
+        [x, y] = snowflake(x, y, angle, size/4, final);
+        angle += Math.PI * 120 / 180;
+        [x, y] = snowflake(x, y, angle, size/4, final);
+        angle += - Math.PI * 60 / 180;
+        [x, y] = snowflake(x, y, angle, size/4, final);
     }
     return [x, y];  // return new position
 }
