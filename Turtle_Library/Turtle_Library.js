@@ -60,7 +60,7 @@ function draw()
             [x, y] = koch(x, y, angle, size, final);
             angle += turn;
         }
-    } else if (description === "snowflake") {
+    } else if (description === "zig-zag") {
         const final = 1;  // final fractal size
         const size = 0.9 * Math.min(w, h);  // initial size of triangle
         let x = 0.5 * (w - size);  // initial position
@@ -69,9 +69,24 @@ function draw()
         context.moveTo(x, y);
         context.lineWidth = 1;  // 1px line width
         for (let i = 0; i < 3; i++) {
-            [x, y] = snowflake(x, y, angle, size, final);
+            [x, y] = zig_zag(x, y, angle, size, final);
             angle -= Math.PI * 120 / 180;
         }
+    } else if (description === "tree") {
+        let length = 45;
+        let angle = Math.PI * 27 / 180;
+        let current_angle = Math.PI / 2;
+        let level = 7;
+        let x = 0.5 * w;
+        let y = 0.1 * h;
+        left_branch(length, angle, level, x, y, current_angle);
+    } else if (description === "dragon") {
+        let level = 16;
+        let length = 2;
+        let x = 0.35 * w;  // current x position
+        let y = 0.63 * h;  // current y position
+        let a = 0;        // current angle position
+        left_dragon(length, level, x, y, a);
     }
 
     context.stroke();  // draw the path on the canvas
@@ -200,25 +215,80 @@ function koch(x, y, angle, size, final)
 }
 
 // Draw Koch Snowflake
-function snowflake(x, y, angle, size, final)
+function zig_zag(x, y, angle, size, final)
 {
     if (size < final) {
         x = x + size * Math.cos(angle);  // move forward
         y = y + size * Math.sin(angle);
         context.lineTo(x, y);  // draw line segment
     } else {
-        [x, y] = snowflake(x, y, angle, size/4, final);
+        [x, y] = zig_zag(x, y, angle, size/4, final);
         angle += Math.PI * 60 / 180;
-        [x, y] = snowflake(x, y, angle, size/4, final);
+        [x, y] = zig_zag(x, y, angle, size/4, final);
         angle += - Math.PI * 120 / 180;
-        [x, y] = snowflake(x, y, angle, size/4, final);
-        [x, y] = snowflake(x, y, angle, size/4, final);
+        [x, y] = zig_zag(x, y, angle, size/4, final);
+        [x, y] = zig_zag(x, y, angle, size/4, final);
         angle += Math.PI * 120 / 180;
-        [x, y] = snowflake(x, y, angle, size/4, final);
+        [x, y] = zig_zag(x, y, angle, size/4, final);
         angle += - Math.PI * 60 / 180;
-        [x, y] = snowflake(x, y, angle, size/4, final);
+        [x, y] = zig_zag(x, y, angle, size/4, final);
     }
     return [x, y];  // return new position
+}
+
+// Draw Tree with 3 functions: left_branch, right_branch and node.
+function left_branch(length, angle, level, x, y, current_angle) {
+    context.moveTo(x, y);
+    x = x + 2 * length * Math.cos(current_angle);  // move forward
+    y = y + 2 * length * Math.sin(current_angle);
+    context.lineTo(x, y);  // draw line segment
+    node(length, angle, level, x, y, current_angle);
+}
+
+function right_branch(length, angle, level, x, y, current_angle) {
+    context.moveTo(x, y);
+    x = x + length * Math.cos(current_angle);  // move forward
+    y = y + length * Math.sin(current_angle);
+    context.lineTo(x, y);  // draw line segment
+    node(length, angle, level, x, y, current_angle);
+}
+
+function node(length, angle, level, x, y, current_angle) {
+    if (level === 0) return;  // return from recursion
+
+    current_angle += angle;
+    left_branch(length, angle, level-1, x, y, current_angle);
+    current_angle -= angle * 2;
+    right_branch(length, angle, level-1, x, y, current_angle);
+}
+
+// Draw Dragon with 2 functions: left_dragon, right_dragon.
+function left_dragon(length, level, x, y, a) {
+    if (level === 0) {
+        context.moveTo(x, y);
+        x = x + length * Math.cos(a);  // move forward
+        y = y + length * Math.sin(a);
+        context.lineTo(x, y);  // draw line segment
+    } else {
+        [x, y, a] = left_dragon(length, level-1, x, y, a);
+        a += Math.PI / 2;
+        [x, y, a] = right_dragon(length, level-1, x, y, a);
+    }
+    return [x, y, a];  // return new position and angle
+}
+
+function right_dragon(length, level, x, y, a) {
+    if (level === 0) {
+        context.moveTo(x, y);
+        x = x + length * Math.cos(a);  // move forward
+        y = y + length * Math.sin(a);
+        context.lineTo(x, y);  // draw line segment
+    } else {
+        [x, y, a] = left_dragon(length, level-1, x, y, a);
+        a -= Math.PI / 2;
+        [x, y, a] = right_dragon(length, level-1, x, y, a);
+    }
+    return [x, y, a];  // return new position and angle
 }
 
 draw();  // draw the figure
