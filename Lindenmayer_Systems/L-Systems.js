@@ -63,23 +63,25 @@ function draw()
         let length = 2;
         let turtle = new Turtle(0.35 * w, 0.63 * h, 0);
         left_dragon(turtle, length, level);
-
-
     } else if (description === "koch") {
         let str = "F-F+F+F-F";
         let replace_rule = [{char: "F", replace: "F-F+F+F-F"}];
+        let draw_rule = {move_forward: "F", turn_left: "-", turn_right: "+"};
         let level = 5;
         let size = 1;
+        let angle = Math.PI / 2;
         str = create_string(str, replace_rule, level);
-        draw_string(str, size);
+        draw_string(str, size, angle, draw_rule);
     } else if (description === "dragon") {
         let str = "FX";
         let replace_rule = [{char: "X", replace: "X+YF"},
                             {char: "Y", replace: "FX-Y"}];
+        let draw_rule = {move_forward: "F", turn_left: "-", turn_right: "+"};
         let level = 16;
         let size = 2;
+        let angle = Math.PI / 2;
         str = create_string(str, replace_rule, level);
-        draw_string(str, size);
+        draw_string(str, size, angle, draw_rule);
     }
 
     context.stroke();  // draw the path on the canvas
@@ -109,21 +111,18 @@ function create_string(str, replace_rule, level) {
 }
 
 // Draw string from created string
-function draw_string(str, size) {
+function draw_string(str, size, angle, draw_rule) {
     let turtle = new Turtle(0.2 * w, 0.33 * h, 0);
-    let angle = Math.PI / 2;
     let len = str.length;
     for(let i = 0; i < len; i++) {
-        switch(str[i]) {
-            case "F":
-                turtle.move_forward(size);
-                break;
-            case "+":
-                turtle.turn_right(angle);
-                break;
-            case "-":
-                turtle.turn_left(angle);
-                break;
+        if(draw_rule.move_forward.includes(str[i])) {
+            turtle.move_forward(size);
+        }
+        if(draw_rule.turn_left.includes(str[i])) {
+            turtle.turn_left(angle);
+        }
+        if(draw_rule.turn_right.includes(str[i])) {
+            turtle.turn_right(angle);
         }
     }
 }
