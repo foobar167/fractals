@@ -70,8 +70,10 @@ function draw()
         let level = 5;
         let size = 1;
         let angle = Math.PI / 2;
+        let x = 0.2 * w;
+        let y = 0.33 * h;
         str = create_string(str, replace_rule, level);
-        draw_string(str, size, angle, draw_rule);
+        draw_string(str, size, angle, draw_rule, x, y);
     } else if (description === "dragon") {
         let str = "FX";
         let replace_rule = [{char: "X", replace: "X+YF"},
@@ -80,8 +82,24 @@ function draw()
         let level = 16;
         let size = 2;
         let angle = Math.PI / 2;
+        let x = 0.2 * w;
+        let y = 0.33 * h;
         str = create_string(str, replace_rule, level);
-        draw_string(str, size, angle, draw_rule);
+        draw_string(str, size, angle, draw_rule, x, y);
+    } else if (description === "Arrowhead Gasket") {
+        let str = "A";
+        let replace_rule = [{char: "A", replace: "B+A+B"},
+                            {char: "B", replace: "A-B-A"}];
+        let draw_rule = {move_forward: "AB", turn_left: "-", turn_right: "+"};
+        let level = 8;
+        let size = 2.7;
+        let angle = Math.PI / 3;
+        let x = 10;
+        let y = 10;
+        str = create_string(str, replace_rule, level);
+        draw_string(str, size, angle, draw_rule, x, y);
+    } else if (description === "Spikey Square") {
+
     }
 
     context.stroke();  // draw the path on the canvas
@@ -111,8 +129,8 @@ function create_string(str, replace_rule, level) {
 }
 
 // Draw string from created string
-function draw_string(str, size, angle, draw_rule) {
-    let turtle = new Turtle(0.2 * w, 0.33 * h, 0);
+function draw_string(str, size, angle, draw_rule, x, y) {
+    let turtle = new Turtle(x, y, 0);
     let len = str.length;
     for(let i = 0; i < len; i++) {
         if(draw_rule.move_forward.includes(str[i])) {
