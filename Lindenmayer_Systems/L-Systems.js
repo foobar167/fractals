@@ -10,10 +10,11 @@ const description = document.currentScript.getAttribute("description");
 
 // Define Turtle class
 class Turtle {
-    constructor(x, y, angle) {
+    constructor(x, y, angle, position = 0) {
         this.x = x;
         this.y = y;
         this.angle = angle;
+        this.position = position;
     }
     turn_left(angle) {
         this.angle += angle;
@@ -72,7 +73,7 @@ function draw()
         let angle = Math.PI / 2;
         str = create_string(str, replace_rule, level);
         let turtle = new Turtle(0.2*w, 0.33*h, 0);
-        draw_string(turtle, str, size, angle, draw_rule, 0);
+        draw_string(turtle, str, size, angle, draw_rule);
     } else if (description === "dragon") {
         let str = "FX";
         let replace_rule = [{char: "X", replace: "X+YF"},
@@ -83,7 +84,7 @@ function draw()
         let angle = Math.PI / 2;
         str = create_string(str, replace_rule, level);
         let turtle = new Turtle(0.2*w, 0.33*h, 0);
-        draw_string(turtle, str, size, angle, draw_rule, 0);
+        draw_string(turtle, str, size, angle, draw_rule);
     } else if (description === "Arrowhead Gasket") {
         let str = "A";
         let replace_rule = [{char: "A", replace: "B+A+B"},
@@ -94,7 +95,7 @@ function draw()
         let angle = Math.PI / 3;
         str = create_string(str, replace_rule, level);
         let turtle = new Turtle(10, 10, 0);
-        draw_string(turtle, str, size, angle, draw_rule, 0);
+        draw_string(turtle, str, size, angle, draw_rule);
     } else if (description === "Spiky Square") {
         let axiom = "FC-FC-FC-F";
         let replace_rule = [{char: "F", replace: "FA-FB+FA-F"}];
@@ -108,18 +109,44 @@ function draw()
         let angle = Math.PI / 36;  // 5 degrees
         let str = create_string(axiom, replace_rule, level);
         let turtle = new Turtle(0, 0, 0);
-        draw_string(turtle, str, size, angle, draw_rule, 0);
+        draw_string(turtle, str, size, angle, draw_rule);
     } else if (description === "Simple L-System with recursion") {
         let axiom = "F";
         let replace_rule = [{char: "F", replace: "F[-F]F"}];
         let draw_rule = {move_forward: "F", turn_left: "-", turn_right: "+",
                          recursion_start: "[", recursion_end: "]"};
-        let level = 2;
-        let size = 5;
+        let level = 8;
+        let size = 3;
         let angle = Math.PI / 2;
         let str = create_string(axiom, replace_rule, level);
+        let turtle = new Turtle(0, 0, 0);
+        draw_string(turtle, str, size, angle, draw_rule);
+    } else if (description === "Tree recursion") {
+        let axiom = "AF";
+        let replace_rule = [{char: "F", replace: "G[-AF][+F]"}];
+        let draw_rule = {move_forward: "FG", turn_left: "-", turn_right: "+",
+                         recursion_start: "[", recursion_end: "]"};
+        let level = 7;
+        let size = 45;
+        let angle = Math.PI * 27 / 180;
+        let str = create_string(axiom, replace_rule, level);
+        let turtle = new Turtle(w/2, 0.2*h, Math.PI/2);
+        draw_string(turtle, str, size, angle, draw_rule);
+    } else if (description === "Penrose tilings") {
+        let axiom = "[X]++[X]++[X]++[X]++[X]";
+        let replace_rule = [{char: "F", replace: ""},
+                            {char: "W", replace: "YF++ZF----XF[-YF----WF]++"},
+                            {char: "X", replace: "+YF--ZF[---WF--XF]+"},
+                            {char: "Y", replace: "-WF++XF[+++YF++ZF]-"},
+                            {char: "Z", replace: "--YF++++WF[+ZF++++XF]--XF"}];
+        let draw_rule = {move_forward: "FWXYZ", turn_left: "-", turn_right: "+",
+                         recursion_start: "[", recursion_end: "]"};
+        let level = 7;
+        let size = 4;
+        let angle = Math.PI / 5;
+        let str = create_string(axiom, replace_rule, level);
         let turtle = new Turtle(w/2, h/2, 0);
-        draw_string(turtle, str, size, angle, draw_rule, 0);
+        draw_string(turtle, str, size, angle, draw_rule);
     }
 
     context.stroke();  // draw the path on the canvas
@@ -149,7 +176,7 @@ function create_string(str, replace_rule, level) {
 }
 
 // Draw string from created string
-function draw_string(turtle, str, size, angle, draw_rule, position) {
+function draw_string(turtle, str, size, angle, draw_rule) {
     let multiply = 1;
     let len_vars = 0;
     if (draw_rule.variables) {
@@ -159,39 +186,40 @@ function draw_string(turtle, str, size, angle, draw_rule, position) {
     if (draw_rule.recursion_start && draw_rule.recursion_end) {
         recursion = true;
     }
-    let len = str.length;
 
-    while(position < len) {
-        if(draw_rule.move_forward.includes(str[position])) {
+    let len = str.length;
+    while(turtle.position < len) {
+        if(draw_rule.move_forward.includes(str[turtle.position])) {
             turtle.move_forward(multiply * size);
             multiply = 1;
         }
-        else if(draw_rule.turn_left.includes(str[position])) {
+        else if(draw_rule.turn_left.includes(str[turtle.position])) {
             turtle.turn_left(multiply * angle);
             multiply = 1;
         }
-        else if(draw_rule.turn_right.includes(str[position])) {
+        else if(draw_rule.turn_right.includes(str[turtle.position])) {
             turtle.turn_right(multiply * angle);
             multiply = 1;
         }
-        else if(recursion && draw_rule.recursion_start.includes(str[position])) {
-            position++;
+        else if(recursion && draw_rule.recursion_start.includes(str[turtle.position])) {
+            turtle.position++;
             let x = turtle.x;  // remember current position
             let y = turtle.y;
             let a = turtle.angle;
-            draw_string(turtle, str, size, angle, draw_rule, position);
-            turtle = new Turtle(x, y, a);  // return to the previous position
-        }
-        else if(recursion && draw_rule.recursion_end.includes(str[position])) {
-            return;
+            let position = draw_string(turtle, str, size, angle, draw_rule);
+            // Return to the previous position on the plane, but continue position in the string
+            turtle = new Turtle(x, y, a, position + 1);
+            continue;  // don't increase position second time
+        } else if(recursion && draw_rule.recursion_end.includes(str[turtle.position])) {
+            return turtle.position;
         } else {
             for(let j = 0; j < len_vars; j++) {
-                if(draw_rule.variables[j].char === str[position]) {
+                if(draw_rule.variables[j].char === str[turtle.position]) {
                     multiply = draw_rule.variables[j].value;
                 }
             }
         }
-        position++;
+        turtle.position++;
     }
 }
 
