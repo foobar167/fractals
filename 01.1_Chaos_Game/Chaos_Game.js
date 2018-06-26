@@ -78,7 +78,7 @@ function chaos_game(vertices, // number of vertices
     context.fillText('For color press <1> or <2>', 10, 40);
     context.fillText('Vertices: ' + vertices + '; Scale: ' + scale.toFixed(3), 10, 60);
 
-    const iterations = 100000;
+    const iterations = 20000;
     for (let i = 0; i < iterations; i++)
     {
         vertex = Math.floor(Math.random() * vertices); // randomly choose vertex
