@@ -30,7 +30,7 @@ class Complex {
     }
 }
 
-// Draw the figure
+// Draw the figure in the browser
 function draw() {
     // Get screen width and height
     const w = window.innerWidth;  // canvas width
