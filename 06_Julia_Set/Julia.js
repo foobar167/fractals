@@ -25,7 +25,7 @@ class Complex {
         return new Complex(a.re * b.re - a.im * b.im,
                            a.re * b.im + a.im * b.re);
     }
-    multiply(b) {
+    mul(b) {
         return Complex.multiply(this, b);
     }
 }
@@ -58,6 +58,14 @@ function draw() {
         const data = {x1: -1.4, x2: 1.4, y1: -1.4, y2: 1.4, w: w, h: h, iter: 100, upper: 200,
             color: true, c: new Complex(0.11031, -0.67037)};
         julia(data);
+    } else if (description === "Sea Horse Random") {
+        const data = {x1: -1.2, x2: 1.2, y1: -1.2, y2: 1.2,
+                      w: w, h: h, iter: 1000000, c: new Complex(0.4, 0.3)};
+        julia3(data);
+    } else if (description === "Dendrites Random") {
+        const data = {x1: -1.4, x2: 1.4, y1: -1.4, y2: 1.4,
+            w: w, h: h, iter: 1000000, c: new Complex(-0.15652, 1.03225)};
+        julia3(data);
     }
 
     context.stroke();  // draw the path on the canvas
@@ -67,7 +75,29 @@ function draw() {
     context.fillText(description, 5, 20);
 }
 
-// Draw Mandelbrot Set
+// Draw Julia3 Set
+function julia3(data) {
+    let k1 = data.w / (data.x2 - data.x1);
+    let k2 = data.h / (data.y2 - data.y1);
+    let l1 = data.w * 0.5;
+    let l2 = data.h * 0.5;
+    let x = 0;  // starting x position
+    let y = 0;  // starting y position
+    for (let j = 0; j < data.iter; j++) {
+        x -= data.c.re;
+        y -= data.c.im;
+        let r = Math.sqrt(Math.sqrt(x * x + y * y));  // new radius
+        let a = Math.atan2(y, x)/2;  // new angle
+        if (Math.floor(Math.random() * 2)) {  // randomly 0 or 1
+            r = -r;  // invert the radius
+        }
+        x = r * Math.cos(a);  // new x position
+        y = r * Math.sin(a);  // new y position
+        context.fillRect(x*k1 + l1, y*k2 + l2, 1, 1);  // draw a point as a rectangle
+    }
+}
+
+// Draw Julia Set
 function julia(data) {
     const dx = (data.x2 - data.x1) / (data.w - 1);
     const dy = (data.y2 - data.y1) / (data.h - 1);
