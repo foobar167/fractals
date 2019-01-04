@@ -11,7 +11,7 @@ environment) to make your experiments with the sources even more easier.
 Tested mostly on Firefox, but it should work on any browser
 with Javascript support. *No additional libraries required*.
 
-   1.1 [Chaos game](01.1_Chaos_Game) is a "fractal player" on JavaScript.
+### 1.1 [Chaos game](01.1_Chaos_Game) is a "fractal player" on JavaScript.
 
 Run HTML file and control fractal drawing with your keyboard.
 Pause, resume, forward and backward chaotic fractal drawing
@@ -20,21 +20,21 @@ with {Space}, →, ←, ↑, ↓ keys. Turn on/off color mode with
 
 ![Chaos game](data/2019.01.04-chaos-player.png)
 
-   1.2 [Chaos game with rotation](01.2_Chaos_Game_Rotation)
+### 1.2 [Chaos game with rotation](01.2_Chaos_Game_Rotation)
 
 The same as previous [chaos game](01.1_Chaos_Game), but rotation
 is added to the drawing procedure.
 
 ![Chaos game with rotation](data/2019.01.04-chaos-player-with-rotation.png)
 
-   1.3 [Random Sierpinski Gasket](01.3_Random_Sierpinski_Gasket)
+### 1.3 [Random Sierpinski Gasket](01.3_Random_Sierpinski_Gasket)
 
 Random Sierpinski Gasket is a Sierpinski Gasket with random triangles.
 It is different every time you press {F5} key (reload page).
 
 ![Random Sierpinski Gasket](data/2019.01.04-random-sierpinski-gasket.png)
 
-   2.1 [Sierpinski Gasket, Hexagon and Carpet](02.1_Sierpinski_Gasket)
+### 2.1 [Sierpinski Gasket, Hexagon and Carpet](02.1_Sierpinski_Gasket)
 
 Sierpinski Gasket, Hexagon and Carpet with 3, 6 and 8 vertices respectively.
 You can change their size dynamically by resizing your browser's window.
@@ -42,7 +42,7 @@ After resizing the image is smoothly redrawn.
 
 ![Sierpinski Gasket](data/2019.01.04-sierpinski-gasket.png)
 
-   2.2 [Ferns](02.2_Ferns)
+### 2.2 [Ferns](02.2_Ferns)
 
 There are three types of fractal ferns: Barnsley Fern, Simple Fern and Spirals.
 You can change their size dynamically by resizing your browser's window.
@@ -60,13 +60,13 @@ Spirals:
 
 ![Spirals](data/2019.01.04-spirals.png)
 
-   2.3 [Recursion Figure](02.3_Recursion_Figure)
+### 2.3 [Recursion Figure](02.3_Recursion_Figure)
 
 Draw the fractal recursively with depth 12.
 
 ![Recursion Figure](data/2019.01.04-recursion-figure.png)
 
-   3. [Turtle Library](03_Turtle_Library)
+### 3. [Turtle Library](03_Turtle_Library)
 
 Implementation of the "Turtle Library".
 Imagine that you're turtle crawling on a plane.
@@ -90,7 +90,7 @@ Sierpinski Gasket, Koch Snowflake and Cycle:
 
 ![Sierpinski Gasket, Koch Snowflake and Cycle](data/2019.01.04-sierpinski-koch-cycle.png)
 
-   4. [Lindenmayer systems](04_Lindenmayer_Systems)
+### 4. [Lindenmayer systems](04_Lindenmayer_Systems)
 
 [Lindenmayer Systems or L-systems](https://en.wikipedia.org/wiki/L-system)
 were first outlined by Aristid Lindenmayer as a method
