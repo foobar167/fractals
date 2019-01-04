@@ -11,7 +11,7 @@ environment) to make your experiments with the sources even more easier.
 Tested mostly on Firefox, but it should work on any browser
 with Javascript support. *No additional libraries required*.
 
-### 1.1 [Chaos game](01.1_Chaos_Game) is a "fractal player" on JavaScript.
+### 1.1 [Chaos game](01.1_Chaos_Game) is a "fractal player" on Javascript.
 
 Run HTML file and control fractal drawing with your keyboard.
 Pause, resume, forward and backward chaotic fractal drawing
