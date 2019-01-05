@@ -114,9 +114,41 @@ Penrose Tilings, Arrowhead Gasket, Koch Square figure and L-system with recursio
 ![Penrose Tilings, Arrowhead Gasket, Koch Square figure and L-system with recursion](
 data/2019.01.04-l-systems-2.png)
 
+### 5. [Mandelbrot set](05_Mandelbrot_Set)
 
+The [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set) is the set
+of complex numbers *C* for which the function *f(z) = z^2 + c*
+does not diverge when iterated from *z = 0*, i.e., for which the sequence
+f(0), f(f(0)), f(f(f(0))), etc., remains bounded in absolute value.
 
+The set is connected to a Julia set, and related Julia sets produce similarly
+complex fractal shapes.
 
+![Mandelbrot 01](data/2019.01.05-mandelbrot-01.png)
 
+![Mandelbrot 02](data/2019.01.05-mandelbrot-02.png)
 
+![Mandelbrot 03](data/2019.01.05-mandelbrot-03.png)
 
+![Mandelbrot 04](data/2019.01.05-mandelbrot-04.png)
+
+![Mandelbrot 05](data/2019.01.05-mandelbrot-05.png)
+
+### 6. [Julia set](06_Julia_Set)
+
+Julia set is a set of complex numbers which do not converge to any limit
+when a given mapping is repeatedly applied to them. In some cases the result
+is a connected fractal set. It was  named after Gaston M. Julia (1893–1978),
+Algerian-born French mathematician.
+
+![Julia set 01](data/2019.01.05-julia-set-01-douady-rabbit.png)
+
+![Julia set 02](data/2019.01.05-julia-set-02-sea-horse.png)
+
+![Julia set 03](data/2019.01.05-julia-set-03-dendrites.png)
+
+![Julia set 04](data/2019.01.05-julia-set-04-dust.png)
+
+![Julia set 05](data/2019.01.05-julia-set-05-random-sea-horse.png)
+
+![Julia set 06](data/2019.01.05-julia-set-06-random-dendrites.png)
