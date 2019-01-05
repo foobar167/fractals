@@ -5,10 +5,6 @@ https://www.amazon.com/Fractals-Programmers-Approach-Ben-Trube-ebook/dp/B00E9W1W
 However, all software was rewritten from C++ to Javascript to make it
 available online, without sophisticated compilation and additional libraries.
 
-Use IDE (integrated development environment)
-**JetBrains WebStorm Community Edition**
-to make your experiments with the source codes easier.
-
 Tested mostly on Firefox browser, but it should work on any browser
 with Javascript support. *No additional libraries required*.
 
