@@ -76,7 +76,7 @@ There are only 2 actions: move forward or turn left-right on some angle.
 It is possible to create huge number of unique and beautiful
 fractals using only two actions. And encode these actions in some
 "words" (see further implementations of
-[Lindenmayer Systems](04_Lindenmayer_Systems)).
+[Lindenmayer systems](04_Lindenmayer_Systems)).
 
 You can resize some of these drawings by changing browser's window.
 
