@@ -46,7 +46,7 @@ After resizing the image is smoothly redrawn.
 ### 2.2 [Ferns](02.2_Ferns)
 
 There are three types of fractal ferns presented:
-Barnsley Fern, Simple Fern and Spirals.
+Barnsley Fern (the most beautiful), Simple Fern and Spirals.
 You can change their size dynamically by resizing your browser's window.
 After resizing the image is smoothly redrawn.
 
